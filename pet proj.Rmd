@@ -1,0 +1,61 @@
+---
+title: "pet proj"
+author: "cchel"
+date: "2023-11-30"
+output: html_document
+---
+
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(lubridate)
+library(stringr)
+```
+
+```{r}
+seattle <- read_delim("../final project/datasets/Seattle_Pet_Licenses.csv",
+                      show_col_types = FALSE)
+```
+This shows that there is a problem with the dataset.
+
+```{r}
+problems(seattle)
+head(seattle)
+```
+In row 23773, column 7, there must have been an encoding error.
+
+```{r}
+seattle[23773, 7] <- 98104
+
+head(seattle)
+```
+Replacing the broken value with the actual zip code, sourced from the Excel CSV file.
+
+
+```{r}
+nyc <- read_delim("../final project/datasets/NYC_Dog_Licensing_Dataset_20231129.csv",
+                  show_col_types = FALSE)
+
+head(nyc)
+tail(nyc)
+```
+The NYC data works fine
+
+```{r}
+seattle %>% 
+  filter(Species != "Cat" & Species != "Dog")
+```
+```{r}
+seattle %>% 
+  mutate(date = str_replace_all(seattle$`License Issue Date`,
+                                c("January" = "01", "February" = "02", "March" = "03",
+                                  "April" = "04", "May" = "05", "June" = "06",
+                                  "July" = "07", "August" = "08", "September" = "09",
+                                  "October" = "10", "November" = "11", "December" = "12"))) %>% 
+  mutate(date = mdy(date))
+```
+```{r}
+nyc %>%
+  mutate(date = mdy(LicenseIssuedDate))
+```
