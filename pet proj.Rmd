@@ -26,6 +26,8 @@ head(seattle)
 In row 23773, column 7, there must have been an encoding error.
 
 ```{r}
+
+
 seattle[23773, 7] <- 98104
 
 head(seattle)
@@ -58,4 +60,24 @@ seattle %>%
 ```{r}
 nyc %>%
   mutate(date = mdy(LicenseIssuedDate))
+```
+
+
+
+1. what are the most popular pet names in seattle and nyc
+seattle:
+```{r}
+seattle %>%
+  group_by(PetName) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count)) %>%
+  head()
+```
+nyc:
+```{r}
+nyc %>%
+  group_by(AnimalName) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count)) %>%
+  head()
 ```
