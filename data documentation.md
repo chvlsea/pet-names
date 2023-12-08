@@ -26,4 +26,4 @@ Data origination: New York City, Department of Mental Health and Hygiene
   
 Number of Rows: 16,979  
 Number of Columns: 6  
-Number of missing/invalid values: NONE  
+Number of missing/invalid values: 13,145 (NA values are either Seattle or NYC values, depending on which city the name doesn't appear in)
